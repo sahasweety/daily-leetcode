@@ -1,6 +1,6 @@
 class Solution {
 public:
-
+//can use findSquareSum in place of fun.
     int fun(int n){
 
         int sum = 0;
@@ -33,3 +33,6 @@ public:
         }
     }
 };
+
+
+
