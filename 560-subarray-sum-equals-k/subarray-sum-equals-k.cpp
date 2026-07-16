@@ -7,24 +7,22 @@ public:
   //  for(j)
     //    calculate sum
 
-    unordered_map<int,int> mp;
+    unordered_map<int,int> f;
+    int sum = 0;
+    int res = 0;
 
-        mp[0] = 1;
+    f[0] =1;
+    for(int i = 0 ; i < nums.size(); i++){
+        sum += nums[i];
+        int ques = (sum -k);
+        int freq = f[ques];
+        res += freq;
+        f[sum] ++;
+    }
+    return res; 
 
-        int pre = 0;
-        int ans = 0;
 
-        for (int i = 0; i < nums.size(); i++) {
-
-            pre += nums[i];
-
-            if (mp.find(pre - k) != mp.end())
-                ans += mp[pre - k];
-
-            mp[pre]++;
-        }
-
-        return ans;
+        
         
     }
 };
