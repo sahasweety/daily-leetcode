@@ -1,64 +1,62 @@
-/***class Solution {
-public:
-    int minDays(vector<int>& bloomDay, int m, int k) {
-        
-    }
-};*/
 class Solution {
 public:
 
-    bool canMake(vector<int>& bloomDay, int m, int k, int day) {
+    bool isPossible(vector<int>& bloomDay, int m, int k, int guess) {
 
         int flowers = 0;
         int bouquets = 0;
 
-        for (int bloom : bloomDay) {
+        for (int i = 0; i < bloomDay.size(); i++) {
 
-            if (bloom <= day) {
+            if (bloomDay[i] <= guess) {
 
                 flowers++;
-
-                if (flowers == k) {
-
-                    bouquets++;
-                    flowers = 0;
-                }
             }
             else {
 
+                bouquets += flowers / k;
                 flowers = 0;
             }
         }
+
+        bouquets += flowers / k;
 
         return bouquets >= m;
     }
 
     int minDays(vector<int>& bloomDay, int m, int k) {
 
-        long long need = 1LL * m * k;
+        long long total = 1LL * m * k;
 
-        if (need > bloomDay.size())
+        if (total > bloomDay.size())
             return -1;
 
-        int low = *min_element(bloomDay.begin(), bloomDay.end());
+        int low = bloomDay[0];
+        int high = bloomDay[0];
 
-        int high = *max_element(bloomDay.begin(), bloomDay.end());
+        for (int i = 1; i < bloomDay.size(); i++) {
+
+            if (bloomDay[i] < low)
+                low = bloomDay[i];
+
+            if (bloomDay[i] > high)
+                high = bloomDay[i];
+        }
 
         int ans = -1;
 
         while (low <= high) {
 
-            int mid = low + (high - low) / 2;
+            int guess = low + (high - low) / 2;
 
-            if (canMake(bloomDay, m, k, mid)) {
+            if (isPossible(bloomDay, m, k, guess)) {
 
-                ans = mid;
-
-                high = mid - 1;
+                ans = guess;
+                high = guess - 1;
             }
             else {
 
-                low = mid + 1;
+                low = guess + 1;
             }
         }
 
