@@ -20,7 +20,7 @@ public:
         char element = maxH.top().second;
 
         for(int i=0; i < freq ; i++){
-            ans += element;
+            ans += element;      //not use ans = ans + element
         }
         maxH.pop();
        }
